@@ -5,6 +5,10 @@ import { Cat } from './interface/cat.interface';
 export class CatsService {
   private readonly cats: Cat[] = [];
 
+  findOne(id: number) {
+    return `This action returns a #${id} cat`;
+  }
+
   create(cat: Cat) {
     this.cats.push(cat);
   }
