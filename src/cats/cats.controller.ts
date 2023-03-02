@@ -1,27 +1,36 @@
 import { Controller, Get, Post, Req } from '@nestjs/common';
-import { Param, Redirect } from '@nestjs/common/decorators';
+import { Body, Delete, Param, Put, Query, Redirect } from '@nestjs/common/decorators';
 import { Request } from 'express';
+import { CatsService } from './cats.service';
+import { CreateCatDto, ListAllEntities, UpdateCatDto } from './create-cat.dto';
+import { Cat } from './interface/cat.interface';
 
 @Controller('cats')
 export class CatsController {
-  // @Get()
-  // @Redirect('https://mynest', 301)
-  // // create(): string {
-  // //   return 'This action adds a new cat';
-  // // }
-  @Get('')
-  hello(@Param() params): string {
-    return "hello";
+  constructor(private catsService: CatsService) { }
+
+  @Post()
+  async create(@Body() createCatDto: CreateCatDto) {
+    this.catsService.create(createCatDto);
   }
-  
-  @Get('ab*cd')
-  findAll(@Req() request: Request): string {
-    return 'This action returns all cats'
+
+  @Get()
+  async findAll(): Promise<Cat[]> {
+    return this.catsService.findAll();
   }
 
   @Get(':id')
-  findOne(@Param() params): string {
-    console.log(params.id);
-    return `This action returns a #${params.id} cat`;
+  findOne(@Param('id') id: string) {
+    return `This action returns a #${id} cat`;
+  }
+
+  @Put(':id')
+  update(@Param('id') id: string, @Body() updateCatDto: UpdateCatDto) {
+    return `This action updates a #${id} cat`;
+  }
+
+  @Delete(':id')
+  remove(@Param('id') id: string) {
+    return `This action removes a #${id} cat`;
   }
 }
