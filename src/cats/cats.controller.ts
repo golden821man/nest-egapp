@@ -2,7 +2,7 @@ import { Controller, Get, HttpException, HttpStatus, Post, Req } from '@nestjs/c
 import { Body, Delete, Param, Put, Query, Redirect } from '@nestjs/common/decorators';
 import { Request } from 'express';
 import { CatsService } from './cats.service';
-import { CreateCatDto, ListAllEntities, UpdateCatDto } from './create-cat.dto';
+import { CreateCatDto, ListAllEntities, UpdateCatDto } from './dto/create-cat.dto';
 import { Cat } from './interface/cat.interface';
 
 @Controller('cats')
